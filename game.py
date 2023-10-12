@@ -1,15 +1,40 @@
 #this class will be responsible for the game so like UI and how it runs and such
+import random
+from player import Player
+from playerAI import PlayerAI
 class Game:
-    def __init__(self, board, row, col):
+    def __init__(self, board):
         self.board = board
+        self.fresh_start = True
+        self.turn = ["start"]
+     #this will be used when the game first starts
+    #to see who will go first
+    def setup(self):
+        choice1 = "player"
+        choice2 = "computer"
+        chosen = random.choice([choice1, choice2])
+        print("the first turn goes to " + chosen)
+        self.turn[0] = chosen
+     #this method will be in charge of the turns in the game
+    def turns(self):
+        person = Player()
+        ai = PlayerAI()
+    #we can start off by checking if the list is emtpy if its empty then we can roll a dice/random int to find out who will go first 
+        if self.fresh_start:
+            self.setup()
+            self.fresh_start = False
+    #elseif if the variable in the list is player then they make their move
+        if self.turn[0] == "player":
+            person.playerChoice(self.board)
+            self.turn[0] = "computer"
+    #else the computer goes 
+        else:
+            ai.computer_choice(self.board)
+            self.turn[0] = "player"
+    #will check if the spot that was chosen is empty
+    def is_spot_empty(self, row, col):
         self.row = row
         self.col = col
-    def setup(self):
-        pass
-    def turns(self):
-        pass
-    #will check if the spot that was chosen is empty
-    def is_spot_empty(self):
         return self.board[self.row][self.col] == ' '
     #this will check wether someone has won
     def check_win(self):
