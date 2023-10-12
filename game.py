@@ -49,7 +49,7 @@ class Game:
             if self.board[0][col] == self.board[1][col] == self.board[2][col] != ' ':
                 return True
        #checks the diagonal 
-        if self.board[0][0] == self.board[1][1] == self.board[2][2] != ' ' or self.board[2][0] == self.board[2][2] == self.board[0][2] != ' ':
+        if self.board[0][0] == self.board[1][1] == self.board[2][2] != ' ' or self.board[2][0] == self.board[1][1] == self.board[0][2] != ' ':
             return True
         return False
     #will check if the game cant go on anymore cause the board is full

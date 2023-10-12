@@ -1,7 +1,16 @@
 #this class will take charge of the AI/minmax algorithm
+import random
+
 class PlayerAI:
     def __init__(self): 
         self.taken_spot = True
+    def choose_random_row(self):
+        random_index = random.randint(0,2)
+        return random_index
+    def choose_random_col(self):
+        random_index = random.randint(0,2)
+        return random_index
+
     def computer_choice(self, board):
         self.board = board 
         from game import Game
