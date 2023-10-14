@@ -15,8 +15,12 @@ def main():
         game_board.display()
 
         if game_func.check_win():
-            print("yahh someone won")
-            break
+            if game_func.winner == 'X':
+                print("Congrats player you won!")
+                break
+            else:
+                print("Congrats computer you won!")
+                break
         if game_func.is_board_full():
             print("Tie you both lost")
             break
