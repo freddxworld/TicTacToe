@@ -1,7 +1,7 @@
-#this will take hold of the player
 class Player:
     def __init__(self):
         self.taken_spot = True
+    #this will run the player choice
     def playerChoice(self, board):
         from game import Game
         self.board = board
@@ -17,6 +17,7 @@ class Player:
             else:
                 print("that is spot is taken please choose another\n")
                 print("\n----------------------------------------------------------------- \n")
+    #this checks if the row that were given is valid
     def get_valid_row(self):
         while True:
             user_input = input("choose row: ")
@@ -24,6 +25,7 @@ class Player:
                 return int(user_input)
             else:
                 print("invalid input please try again")
+    #this checks if the col that we were given is valid
     def get_valid_col(self):
         while True:
             user_input = input("choose col: ")
