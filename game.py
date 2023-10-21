@@ -8,27 +8,29 @@ class Game:
         self.fresh_start = True
         self.turn = ["start"]
         self.winner = ''
-     #this will be used when the game first starts
+    #this will be used when the game first starts
     #to see who will go first
     def setup(self):
         choice1 = "player"
         choice2 = "computer"
+        #chooses a random player to go first
         chosen = random.choice([choice1, choice2])
         print("the first turn goes to " + chosen)
+        #saves that player so we can use later
         self.turn[0] = chosen
-     #this method will be in charge of the turns in the game
+    #this method will be in charge of the turns in the game
     def turns(self):
         person = Player()
         ai = PlayerAI()
-    #we can start off by checking if the list is emtpy if its empty then we can roll a dice/random int to find out who will go first 
+        #we can start off by checking if the list is emtpy if its empty then we can roll a dice/random int to find out who will go first 
         if self.fresh_start:
             self.setup()
             self.fresh_start = False
-    #elseif if the variable in the list is player then they make their move
+        #if the variable in the list is player then they make their move
         if self.turn[0] == "player":
             person.playerChoice(self.board)
             self.turn[0] = "computer"
-    #else the computer goes 
+        #else the computer goes 
         else:
             ai.computer_choice(self.board)
             self.turn[0] = "player"
@@ -38,20 +40,17 @@ class Game:
         self.col = col
         return self.board[self.row][self.col] == ' '
     #this will check wether someone has won
-    def check_win(self):
-        #checks each row in the table
-        for rowSpot in self.board:
-            if rowSpot[0] == rowSpot[1] == rowSpot[2] != ' ':
-                self.winner = rowSpot[1]
+    def check_win(self, player):
+        # Check rows
+        for row in self.board:
+            if row.count(player) == 3:
                 return True
-        #checks each col
-        for col in range(len(self.board[0])):
-            if self.board[0][col] == self.board[1][col] == self.board[2][col] != ' ':
-                self.winner =  self.board[1][col]
+        # Check columns
+        for col in range(3):
+            if [self.board[row][col] for row in range(3)].count(player) == 3:
                 return True
-       #checks the diagonal 
-        if self.board[0][0] == self.board[1][1] == self.board[2][2] != ' ' or self.board[2][0] == self.board[1][1] == self.board[0][2] != ' ':
-            self.winner = self.board[1][1]
+        # Check diagonals
+        if [self.board[i][i] for i in range(3)].count(player) == 3 or [self.board[i][2-i] for i in range(3)].count(player) == 3:
             return True
         return False
     #will check if the game cant go on anymore cause the board is full
@@ -59,8 +58,3 @@ class Game:
         #so the "all" part is essential to this cause it checks it all before letting
         #you know wether its true or false
         return all(col != ' ' for row in self.board for col in row)
-#setup 
-#turns
-#isspotempty
-#check win
-#is board full
